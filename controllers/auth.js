@@ -1,17 +1,43 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 
+const registerUser = async(req, res = express.response ) => {
 
-const registerUser = (req, res = express.response ) => {
+    const { email, password } = req.body;
 
-    const { name, email, password } = req.body;
+    try {
+        let user = await User.findOne({ email });
+        
+        if(user) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Un usuario existe con ese correo'
+            });
+        }
 
-    res.status(201).json({
-        ok: true,
-        msg: 'register',
-        name,
-        email,
-        password
-    })
+        user = new User(req.body);
+    
+        // Encriptar contraseña
+        const salt = bcrypt.genSaltSync();
+        user.password = bcrypt.hashSync( password, salt );
+
+        await user.save();
+    
+        res.status(201).json({
+            ok: true,
+            uid: user.id,
+            name: user.name
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+
 
 }
 
