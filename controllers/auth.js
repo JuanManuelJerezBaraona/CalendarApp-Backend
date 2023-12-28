@@ -23,6 +23,9 @@ const registerUser = async(req, res = express.response ) => {
         user.password = bcrypt.hashSync( password, salt );
 
         await user.save();
+
+        // Generar JSON WEB TOKEN
+        
     
         res.status(201).json({
             ok: true,
