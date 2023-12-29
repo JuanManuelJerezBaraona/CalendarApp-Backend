@@ -91,11 +91,16 @@ const loginUser = async(req, res = express.response) => {
 
 }
 
-const renewToken = (req, res = express.response) => {
+const renewToken = async(req, res = express.response) => {
     
+    const { uid, name } = req;
+
+    // Generar JSON WEB TOKEN
+    token = await generateJWT(uid, name);
+
     res.json({
         ok: true,
-        msg: 'renew'
+        token
     })
 
 }
