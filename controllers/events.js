@@ -1,7 +1,7 @@
 const express = require('express');
 
 const getEvents = async(req, res = express.response) => {
-    res.json({
+    return res.json({
         ok: true,
         msg: 'getEvents'
     });
@@ -10,21 +10,21 @@ const getEvents = async(req, res = express.response) => {
 const createEvent = async(req, res = express.response) => {
     res.json({
         ok: true,
-        msg: 'getEvents'
+        msg: 'createEvent'
     });
 }
 
 const updateEvent = async(req, res = express.response) => {
     res.json({
         ok: true,
-        msg: 'getEvents'
+        msg: 'updateEvent'
     });
 }
 
 const deleteEvent = async(req, res = express.response) => {
     res.json({
         ok: true,
-        msg: 'getEvents'
+        msg: 'deleteEvent'
     });
 }
 

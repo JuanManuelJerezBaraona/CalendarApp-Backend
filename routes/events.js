@@ -10,17 +10,20 @@ const { getEvents, createEvent, updateEvent, deleteEvent } = require('../control
 const router = express.Router();
 
 // Todas tienen que pasar por la validación de JWT
+router.use(validateJWT);
+
+
 
 // Obtener eventos
-router.get('/', validateJWT, getEvents);
+router.get('/', getEvents);
 
 // Crear un nuevo evento
-router.post('/', validateJWT, createEvent);
+router.post('/', createEvent);
 
 // Actualizar un evento
-router.put('/:id', validateJWT, updateEvent);
+router.put('/:id', updateEvent);
 
 // Borrar un evento
-router.delete('/:id', validateJWT, deleteEvent);
+router.delete('/:id', deleteEvent);
 
 module.exports = router;
